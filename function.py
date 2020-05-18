@@ -17,7 +17,3 @@ def reformat_user(author):
         list.append(author[i])
     list = ''.join(list)
     return list
-
-
-def is_spam(message, user, when):
-    print(user)
