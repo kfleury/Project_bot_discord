@@ -12,16 +12,13 @@ from function import message as element
 from dotenv import load_dotenv
 from discord.ext import commands
 
-
 ## global variables
 counter_global = 5
-
 
 ## information from env
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 SERVER_NAME = os.getenv("DISCORD_GUILD")
-
 
 ## connection to discord
 client = commands.Bot(command_prefix='!')
@@ -36,7 +33,6 @@ async def foo(ctx, arg: str):
 async def on_ready():
     ## init status
     game = dc.Game("Je mange des chats")
-
     await client.change_presence(status=dc.Status.idle, activity=game)
     ## display guild name
     guild = dc.utils.get(client.guilds, name=SERVER_NAME)
@@ -65,6 +61,7 @@ async def on_message(message):
     messages = await message.channel.history(limit=30).flatten()
     if messages[29].created_at.second + 20 <= messages[0].created_at.second:
         await message.channel.send(f'Arrête de spam {user} !')
+        # await message.channel_mentions.guild.ban(message.author, 7, "Spamming")
     for elem in element:
         if elem in message.content.lower():
             await message.channel.send(f'Bonjour à toi {user} !')
